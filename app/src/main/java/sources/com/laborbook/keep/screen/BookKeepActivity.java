@@ -486,9 +486,6 @@ public final class BookKeepActivity extends BaseActivity implements Navigator.Na
             checkForUpdate();
         } catch (Exception unused) {
         }
-        observeProStatusChanges();
-        observeSubscriptionStateChanges();
-        checkAndShowHardPaywall();
     }
 
     /* JADX INFO: Access modifiers changed from: private */

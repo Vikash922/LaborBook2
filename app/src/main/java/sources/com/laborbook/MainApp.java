@@ -124,19 +124,6 @@ public final class MainApp extends Application {
             }
         });
         MainApp mainApp = this;
-        FirebaseApp.initializeApp(mainApp);
-        MobileAds.initialize(mainApp);
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
-        FirebaseAnalytics firebaseAnalytics = FirebaseAnalytics.getInstance(mainApp);
-        Intrinsics.checkNotNullExpressionValue(firebaseAnalytics, "getInstance(...)");
-        firebaseAnalytics.setAnalyticsCollectionEnabled(true);
-        getAnalyticsManager().setFirebaseAnalyticsInstance(firebaseAnalytics);
-        AmplitudeHolder.INSTANCE.setInstance(new Amplitude(new Configuration(BaseConstants.AMPLITUDE_API_KEY, mainApp, 0, 0, null, false, null, null, null, null, null, 0, false, null, null, null, null, false, false, false, null, false, false, false, 0L, false, null, 0L, null, null, false, null, null, null, -4, 3, null)));
-        getAnalyticsManager().configurePlatforms(CollectionsKt.listOf(AnalyticsPlatforms.FIREBASE));
-        BuildersKt__Builders_commonKt.launch$default(CoroutineScopeKt.CoroutineScope(Dispatchers.getIO()), null, null, new C35422(null), 3, null);
-        initialiseFacebookSdk();
-        initialiseInMobiAds();
-        setInstallSourceOnce();
     }
 
     /* JADX INFO: Access modifiers changed from: private */

@@ -297,10 +297,7 @@ public final class RoutingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen.INSTANCE.installSplashScreen(this);
         super.onCreate(savedInstanceState);
-        setContentView(C3544R.layout.activity_routing);
-        recordAppOpenEvent();
-        initRemoteConfig();
-        BuildersKt__Builders_commonKt.launch$default(LifecycleOwnerKt.getLifecycleScope(this), null, null, new C35511(null), 3, null);
+        navigateToHomeScreen();
     }
 
     /* JADX INFO: renamed from: com.laborbook.RoutingActivity$onCreate$1 */
