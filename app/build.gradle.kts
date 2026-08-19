@@ -9,6 +9,7 @@ repositories {
 }
 
 android {
+    namespace = "com.laborbook"
     compileSdk = 33
     defaultConfig {
         applicationId = "com.rebuilt.app"
@@ -26,7 +27,10 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+        buildConfig = true
     }
+
+    sourceSets["main"].java.srcDirs("src/main/java/sources")
 }
 
 dependencies {
