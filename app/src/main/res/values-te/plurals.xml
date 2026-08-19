@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="one">%d కొత్త నోటిఫికేషన్</item>
+        <item quantity="other">%d కొత్త నోటిఫికేషన్‌లు</item>
+    </plurals>
+    <plurals name="start_x_day_free_trial">
+        <item quantity="one">%d రోజు ఉచిత ట్రయల్ ప్రారంభించండి</item>
+        <item quantity="other">%d రోజులు ఉచిత ట్రయల్ ప్రారంభించండి</item>
+    </plurals>
+</resources>

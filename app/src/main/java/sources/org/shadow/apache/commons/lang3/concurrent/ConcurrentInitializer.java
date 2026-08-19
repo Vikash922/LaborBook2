@@ -1,0 +1,6 @@
+package org.shadow.apache.commons.lang3.concurrent;
+
+/* JADX INFO: loaded from: classes4.dex */
+public interface ConcurrentInitializer<T> {
+    T get() throws ConcurrentException;
+}

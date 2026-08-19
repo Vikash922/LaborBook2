@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@drawable/bg_review_card" android:padding="@dimen/margin_12" android:layout_width="280.0dp" android:layout_height="wrap_content" android:layout_marginEnd="@dimen/margin_12"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/margin_8">
+        <ImageView android:id="@id/iv_review_avatar" android:background="@drawable/bg_circle_clip" android:layout_width="40.0dp" android:layout_height="40.0dp" android:scaleType="centerCrop" android:contentDescription="@null" android:clipToOutline="true" />
+        <LinearLayout android:orientation="vertical" android:layout_width="0.0dp" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginStart="@dimen/margin_8">
+            <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/text_color" android:id="@id/tv_review_name" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <TextView android:textSize="12.0sp" android:textColor="#ffb800" android:id="@id/tv_review_stars" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="★★★★★" />
+        </LinearLayout>
+    </LinearLayout>
+    <TextView android:textSize="12.0sp" android:textColor="@color/sub_text_color" android:id="@id/tv_review_text" android:layout_width="match_parent" android:layout_height="wrap_content" android:lines="2" android:lineSpacingMultiplier="1.2" />
+</LinearLayout>

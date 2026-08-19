@@ -1,0 +1,456 @@
+.class public final Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;
+.super Lcom/google/android/gms/ads/query/QueryInfoGenerationCallback;
+.source "com.google.android.gms:play-services-ads@@24.2.0"
+
+
+# instance fields
+.field private final zza:Lcom/google/android/gms/ads/nonagon/signalgeneration/zzo;
+
+.field private final zzb:Lcom/google/android/gms/internal/ads/zzdrj;
+
+.field private final zzc:Z
+
+.field private final zzd:I
+
+.field private final zze:J
+
+.field private final zzf:Ljava/lang/Boolean;
+
+
+# direct methods
+.method public constructor <init>(Lcom/google/android/gms/ads/nonagon/signalgeneration/zzo;ZILjava/lang/Boolean;Lcom/google/android/gms/internal/ads/zzdrj;)V
+    .locals 0
+
+    .line 1
+    invoke-direct {p0}, Lcom/google/android/gms/ads/query/QueryInfoGenerationCallback;-><init>()V
+
+    iput-object p1, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zza:Lcom/google/android/gms/ads/nonagon/signalgeneration/zzo;
+
+    iput-boolean p2, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zzc:Z
+
+    iput p3, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zzd:I
+
+    iput-object p4, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zzf:Ljava/lang/Boolean;
+
+    iput-object p5, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zzb:Lcom/google/android/gms/internal/ads/zzdrj;
+
+    invoke-static {}, Lcom/google/android/gms/ads/internal/zzv;->zzC()Lcom/google/android/gms/common/util/Clock;
+
+    move-result-object p1
+
+    invoke-interface {p1}, Lcom/google/android/gms/common/util/Clock;->currentTimeMillis()J
+
+    move-result-wide p1
+
+    iput-wide p1, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zze:J
+
+    return-void
+.end method
+
+.method private static zza()J
+    .locals 4
+
+    .line 1
+    invoke-static {}, Lcom/google/android/gms/ads/internal/zzv;->zzC()Lcom/google/android/gms/common/util/Clock;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Lcom/google/android/gms/common/util/Clock;->currentTimeMillis()J
+
+    move-result-wide v0
+
+    sget-object v2, Lcom/google/android/gms/internal/ads/zzben;->zzh:Lcom/google/android/gms/internal/ads/zzbds;
+
+    invoke-virtual {v2}, Lcom/google/android/gms/internal/ads/zzbds;->zze()Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Ljava/lang/Long;
+
+    invoke-virtual {v2}, Ljava/lang/Long;->longValue()J
+
+    move-result-wide v2
+
+    add-long/2addr v0, v2
+
+    return-wide v0
+.end method
+
+.method private final zzb()J
+    .locals 4
+
+    .line 1
+    invoke-static {}, Lcom/google/android/gms/ads/internal/zzv;->zzC()Lcom/google/android/gms/common/util/Clock;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Lcom/google/android/gms/common/util/Clock;->currentTimeMillis()J
+
+    move-result-wide v0
+
+    iget-wide v2, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zze:J
+
+    sub-long/2addr v0, v2
+
+    return-wide v0
+.end method
+
+
+# virtual methods
+.method public final onFailure(Ljava/lang/String;)V
+    .locals 10
+
+    const/16 v0, 0x9
+
+    .line 1
+    new-array v0, v0, [Landroid/util/Pair;
+
+    new-instance v1, Landroid/util/Pair;
+
+    const-string/jumbo v2, "sgf_reason"
+
+    invoke-direct {v1, v2, p1}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    const/4 v2, 0x0
+
+    aput-object v1, v0, v2
+
+    new-instance v1, Landroid/util/Pair;
+
+    const-string v2, "se"
+
+    const-string v3, "query_g"
+
+    invoke-direct {v1, v2, v3}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    const/4 v2, 0x1
+
+    aput-object v1, v0, v2
+
+    new-instance v1, Landroid/util/Pair;
+
+    sget-object v3, Lcom/google/android/gms/ads/AdFormat;->BANNER:Lcom/google/android/gms/ads/AdFormat;
+
+    .line 2
+    invoke-virtual {v3}, Lcom/google/android/gms/ads/AdFormat;->name()Ljava/lang/String;
+
+    move-result-object v3
+
+    const-string v4, "ad_format"
+
+    invoke-direct {v1, v4, v3}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    const/4 v3, 0x2
+
+    aput-object v1, v0, v3
+
+    new-instance v1, Landroid/util/Pair;
+
+    const/4 v3, 0x6
+
+    .line 3
+    invoke-static {v3}, Ljava/lang/Integer;->toString(I)Ljava/lang/String;
+
+    move-result-object v4
+
+    const-string v5, "rtype"
+
+    invoke-direct {v1, v5, v4}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    const/4 v4, 0x3
+
+    aput-object v1, v0, v4
+
+    new-instance v1, Landroid/util/Pair;
+
+    const-string v4, "scar"
+
+    const-string/jumbo v5, "true"
+
+    invoke-direct {v1, v4, v5}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    const/4 v4, 0x4
+
+    aput-object v1, v0, v4
+
+    new-instance v1, Landroid/util/Pair;
+
+    .line 4
+    invoke-direct {p0}, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zzb()J
+
+    move-result-wide v4
+
+    invoke-static {v4, v5}, Ljava/lang/Long;->toString(J)Ljava/lang/String;
+
+    move-result-object v4
+
+    const-string v5, "lat_ms"
+
+    invoke-direct {v1, v5, v4}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    const/4 v4, 0x5
+
+    aput-object v1, v0, v4
+
+    new-instance v1, Landroid/util/Pair;
+
+    iget v9, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zzd:I
+
+    const-string/jumbo v4, "sgpc_rn"
+
+    .line 5
+    invoke-static {v9}, Ljava/lang/Integer;->toString(I)Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-direct {v1, v4, v5}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    aput-object v1, v0, v3
+
+    new-instance v1, Landroid/util/Pair;
+
+    iget-object v3, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zzf:Ljava/lang/Boolean;
+
+    const-string/jumbo v4, "sgpc_lsu"
+
+    .line 6
+    invoke-static {v3}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+
+    move-result-object v3
+
+    invoke-direct {v1, v4, v3}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    const/4 v3, 0x7
+
+    aput-object v1, v0, v3
+
+    iget-boolean v1, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zzc:Z
+
+    new-instance v3, Landroid/util/Pair;
+
+    if-eq v2, v1, :cond_0
+
+    const-string v2, "0"
+
+    goto :goto_0
+
+    .line 9
+    :cond_0
+    const-string v2, "1"
+
+    .line 6
+    :goto_0
+    const-string/jumbo v4, "tpc"
+
+    .line 7
+    invoke-direct {v3, v4, v2}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    const/16 v2, 0x8
+
+    aput-object v3, v0, v2
+
+    iget-object v2, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zzb:Lcom/google/android/gms/internal/ads/zzdrj;
+
+    const/4 v3, 0x0
+
+    const-string/jumbo v4, "sgpcf"
+
+    .line 1
+    invoke-static {v2, v3, v4, v0}, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzaa;->zzd(Lcom/google/android/gms/internal/ads/zzdrj;Lcom/google/android/gms/internal/ads/zzdqy;Ljava/lang/String;[Landroid/util/Pair;)V
+
+    new-instance v0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzq;
+
+    const/4 v5, 0x0
+
+    .line 8
+    invoke-static {}, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zza()J
+
+    move-result-wide v7
+
+    move-object v4, v0
+
+    move-object v6, p1
+
+    invoke-direct/range {v4 .. v9}, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzq;-><init>(Lcom/google/android/gms/ads/query/QueryInfo;Ljava/lang/String;JI)V
+
+    iget-object p1, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zza:Lcom/google/android/gms/ads/nonagon/signalgeneration/zzo;
+
+    .line 9
+    invoke-virtual {p1, v1, v0}, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzo;->zzf(ZLcom/google/android/gms/ads/nonagon/signalgeneration/zzq;)V
+
+    return-void
+.end method
+
+.method public final onSuccess(Lcom/google/android/gms/ads/query/QueryInfo;)V
+    .locals 10
+
+    const/16 v0, 0x8
+
+    .line 1
+    new-array v0, v0, [Landroid/util/Pair;
+
+    new-instance v1, Landroid/util/Pair;
+
+    const-string v2, "se"
+
+    const-string v3, "query_g"
+
+    invoke-direct {v1, v2, v3}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    const/4 v2, 0x0
+
+    aput-object v1, v0, v2
+
+    new-instance v1, Landroid/util/Pair;
+
+    sget-object v2, Lcom/google/android/gms/ads/AdFormat;->BANNER:Lcom/google/android/gms/ads/AdFormat;
+
+    .line 2
+    invoke-virtual {v2}, Lcom/google/android/gms/ads/AdFormat;->name()Ljava/lang/String;
+
+    move-result-object v2
+
+    const-string v3, "ad_format"
+
+    invoke-direct {v1, v3, v2}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    const/4 v2, 0x1
+
+    aput-object v1, v0, v2
+
+    new-instance v1, Landroid/util/Pair;
+
+    const/4 v3, 0x6
+
+    .line 3
+    invoke-static {v3}, Ljava/lang/Integer;->toString(I)Ljava/lang/String;
+
+    move-result-object v4
+
+    const-string v5, "rtype"
+
+    invoke-direct {v1, v5, v4}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    const/4 v4, 0x2
+
+    aput-object v1, v0, v4
+
+    new-instance v1, Landroid/util/Pair;
+
+    const-string v4, "scar"
+
+    const-string/jumbo v5, "true"
+
+    invoke-direct {v1, v4, v5}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    const/4 v4, 0x3
+
+    aput-object v1, v0, v4
+
+    new-instance v1, Landroid/util/Pair;
+
+    .line 4
+    invoke-direct {p0}, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zzb()J
+
+    move-result-wide v4
+
+    invoke-static {v4, v5}, Ljava/lang/Long;->toString(J)Ljava/lang/String;
+
+    move-result-object v4
+
+    const-string v5, "lat_ms"
+
+    invoke-direct {v1, v5, v4}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    const/4 v4, 0x4
+
+    aput-object v1, v0, v4
+
+    new-instance v1, Landroid/util/Pair;
+
+    iget v9, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zzd:I
+
+    const-string/jumbo v4, "sgpc_rn"
+
+    .line 5
+    invoke-static {v9}, Ljava/lang/Integer;->toString(I)Ljava/lang/String;
+
+    move-result-object v5
+
+    invoke-direct {v1, v4, v5}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    const/4 v4, 0x5
+
+    aput-object v1, v0, v4
+
+    new-instance v1, Landroid/util/Pair;
+
+    iget-object v4, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zzf:Ljava/lang/Boolean;
+
+    const-string/jumbo v5, "sgpc_lsu"
+
+    .line 6
+    invoke-static {v4}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+
+    move-result-object v4
+
+    invoke-direct {v1, v5, v4}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    aput-object v1, v0, v3
+
+    iget-boolean v1, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zzc:Z
+
+    new-instance v3, Landroid/util/Pair;
+
+    if-eq v2, v1, :cond_0
+
+    const-string v2, "0"
+
+    goto :goto_0
+
+    .line 9
+    :cond_0
+    const-string v2, "1"
+
+    .line 6
+    :goto_0
+    const-string/jumbo v4, "tpc"
+
+    .line 7
+    invoke-direct {v3, v4, v2}, Landroid/util/Pair;-><init>(Ljava/lang/Object;Ljava/lang/Object;)V
+
+    const/4 v2, 0x7
+
+    aput-object v3, v0, v2
+
+    iget-object v2, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zzb:Lcom/google/android/gms/internal/ads/zzdrj;
+
+    const/4 v3, 0x0
+
+    const-string/jumbo v4, "sgpcs"
+
+    .line 1
+    invoke-static {v2, v3, v4, v0}, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzaa;->zzd(Lcom/google/android/gms/internal/ads/zzdrj;Lcom/google/android/gms/internal/ads/zzdqy;Ljava/lang/String;[Landroid/util/Pair;)V
+
+    new-instance v0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzq;
+
+    const-string v6, ""
+
+    .line 8
+    invoke-static {}, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zza()J
+
+    move-result-wide v7
+
+    move-object v4, v0
+
+    move-object v5, p1
+
+    invoke-direct/range {v4 .. v9}, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzq;-><init>(Lcom/google/android/gms/ads/query/QueryInfo;Ljava/lang/String;JI)V
+
+    iget-object p1, p0, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzp;->zza:Lcom/google/android/gms/ads/nonagon/signalgeneration/zzo;
+
+    .line 9
+    invoke-virtual {p1, v1, v0}, Lcom/google/android/gms/ads/nonagon/signalgeneration/zzo;->zzf(ZLcom/google/android/gms/ads/nonagon/signalgeneration/zzq;)V
+
+    return-void
+.end method

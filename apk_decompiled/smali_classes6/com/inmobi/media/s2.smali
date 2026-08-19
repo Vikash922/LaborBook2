@@ -1,0 +1,72 @@
+.class public final Lcom/inmobi/media/s2;
+.super Lkotlin/jvm/internal/Lambda;
+.source "SourceFile"
+
+# interfaces
+.implements Lkotlin/jvm/functions/Function0;
+
+
+# static fields
+.field public static final a:Lcom/inmobi/media/s2;
+
+
+# direct methods
+.method static constructor <clinit>()V
+    .locals 1
+
+    .line 1
+    new-instance v0, Lcom/inmobi/media/s2;
+
+    invoke-direct {v0}, Lcom/inmobi/media/s2;-><init>()V
+
+    sput-object v0, Lcom/inmobi/media/s2;->a:Lcom/inmobi/media/s2;
+
+    return-void
+.end method
+
+.method public constructor <init>()V
+    .locals 1
+
+    const/4 v0, 0x0
+
+    .line 1
+    invoke-direct {p0, v0}, Lkotlin/jvm/internal/Lambda;-><init>(I)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public final invoke()Ljava/lang/Object;
+    .locals 3
+
+    .line 1
+    sget-object v0, Lcom/inmobi/media/K2;->a:Ljava/util/LinkedHashMap;
+
+    .line 2
+    const-string v0, "null cannot be cast to non-null type com.inmobi.commons.core.configs.RootConfig"
+
+    const/4 v1, 0x0
+
+    const-string v2, "root"
+
+    invoke-static {v2, v0, v1}, Lcom/inmobi/media/V4;->a(Ljava/lang/String;Ljava/lang/String;Lcom/inmobi/media/J2;)Lcom/inmobi/commons/core/configs/Config;
+
+    move-result-object v0
+
+    .line 3
+    check-cast v0, Lcom/inmobi/commons/core/configs/RootConfig;
+
+    .line 7
+    invoke-virtual {v0}, Lcom/inmobi/commons/core/configs/RootConfig;->isMonetizationDisabled()Z
+
+    move-result v0
+
+    xor-int/lit8 v0, v0, 0x1
+
+    invoke-static {v0}, Ljava/lang/Boolean;->valueOf(Z)Ljava/lang/Boolean;
+
+    move-result-object v0
+
+    return-object v0
+.end method

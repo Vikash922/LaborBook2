@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:background="@color/white" android:layout_width="match_parent" android:layout_height="wrap_content" android:fillViewport="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:padding="@dimen/margin_16" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <com.boilerplate.uikit.views.textviews.text20.TextViewBold20 android:gravity="center" android:id="@id/tv_report_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/margin_16" android:text="REPORT" />
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/margin_16">
+            <com.boilerplate.uikit.views.textviews.text14.TextViewRegular14 android:textSize="14.0sp" android:id="@id/tv_name_label" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="4.0dp" android:text="Name:" />
+            <com.boilerplate.uikit.views.textviews.text14.TextViewRegular14 android:textSize="14.0sp" android:textColor="@color/sub_text_color" android:id="@id/tv_phone_label" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Phone number:" />
+        </LinearLayout>
+        <com.boilerplate.uikit.views.textviews.text16.TextViewBold16 android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/margin_12" android:text="Summary" />
+        <LinearLayout android:orientation="vertical" android:background="@drawable/table_border" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:orientation="vertical" android:background="@color/white" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="@dimen/margin_48">
+                    <com.boilerplate.uikit.views.textviews.text14.TextViewBold14 android:gravity="start|center" android:background="@drawable/table_cell_border_right_bottom" android:paddingLeft="@dimen/margin_8" android:paddingRight="@dimen/margin_8" android:layout_width="0.0dp" android:layout_height="match_parent" android:minHeight="@dimen/margin_48" android:text="@string/date" android:layout_weight="0.6" android:paddingHorizontal="@dimen/margin_8" />
+                    <com.boilerplate.uikit.views.textviews.text14.TextViewBold14 android:gravity="start|center" android:background="@drawable/table_cell_border_right_bottom" android:paddingLeft="@dimen/margin_8" android:paddingRight="@dimen/margin_8" android:layout_width="0.0dp" android:layout_height="match_parent" android:minHeight="@dimen/margin_48" android:text="@string/notes" android:layout_weight="1.5" android:paddingHorizontal="@dimen/margin_8" />
+                    <com.boilerplate.uikit.views.textviews.text14.TextViewBold14 android:gravity="start|center" android:background="@drawable/table_cell_border_bottom" android:layout_width="0.0dp" android:layout_height="match_parent" android:minHeight="@dimen/margin_48" android:text="@string/rupee_amount" android:layout_weight="1.2" android:paddingStart="@dimen/margin_8" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical" android:id="@id/ll_transaction_items" android:layout_width="match_parent" android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/margin_12">
+            <LinearLayout android:orientation="horizontal" android:id="@id/ll_cash_in_total" android:paddingTop="6.0dp" android:paddingBottom="6.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="6.0dp">
+                <com.boilerplate.uikit.views.textviews.text14.TextViewRegular14 android:gravity="start" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/cashbook_cash_in" android:layout_weight="1.0" />
+                <com.boilerplate.uikit.views.textviews.text14.TextViewBold14 android:textColor="#4caf50" android:gravity="end" android:id="@id/tv_cash_in_total" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="₹0" />
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:id="@id/ll_cash_out_total" android:paddingTop="6.0dp" android:paddingBottom="6.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="6.0dp">
+                <com.boilerplate.uikit.views.textviews.text14.TextViewRegular14 android:gravity="start" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/cashbook_cash_out" android:layout_weight="1.0" />
+                <com.boilerplate.uikit.views.textviews.text14.TextViewBold14 android:textColor="#f44336" android:gravity="end" android:id="@id/tv_cash_out_total" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="₹0" />
+            </LinearLayout>
+            <View android:background="@color/divider_color" android:layout_width="match_parent" android:layout_height="1.0dp" android:layout_marginTop="4.0dp" android:layout_marginBottom="4.0dp" android:layout_marginVertical="4.0dp" />
+            <LinearLayout android:orientation="horizontal" android:id="@id/ll_total_earnings" android:paddingTop="6.0dp" android:paddingBottom="6.0dp" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="6.0dp">
+                <com.boilerplate.uikit.views.textviews.text16.TextViewBold16 android:gravity="start" android:id="@id/tv_total_label" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/cashbook_balance" android:layout_weight="1.0" />
+                <com.boilerplate.uikit.views.textviews.text16.TextViewBold16 android:gravity="end" android:id="@id/tv_total_amount" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="₹0" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/margin_24" android:layout_marginBottom="@dimen/margin_24" android:layout_marginVertical="@dimen/margin_24">
+            <View android:background="@color/divider_color" android:layout_width="0.0dp" android:layout_height="@dimen/margin_1" android:layout_weight="1.0" />
+            <com.boilerplate.uikit.views.textviews.text16.TextViewBold16 android:paddingLeft="@dimen/margin_16" android:paddingRight="@dimen/margin_16" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="THANK YOU" android:paddingHorizontal="@dimen/margin_16" />
+            <View android:background="@color/divider_color" android:layout_width="0.0dp" android:layout_height="@dimen/margin_1" android:layout_weight="1.0" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/ll_marketing_footer" android:background="@color/button_enabled_bg_color" android:padding="@dimen/margin_12" android:focusable="true" android:clickable="true" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <com.boilerplate.uikit.views.textviews.text12.TextViewRegular12 android:textColor="@color/white" android:gravity="start|center" android:id="@id/tv_report_generated_by" android:layout_width="0.0dp" android:layout_height="wrap_content" android:text="@string/report_generated_by_laborbook" android:layout_weight="1.0" />
+            <com.boilerplate.uikit.views.textviews.text12.TextViewRegular12 android:textColor="@color/white" android:gravity="end|center" android:id="@id/tv_download_app" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/download_app_for_free_newline" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

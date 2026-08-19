@@ -1,0 +1,41 @@
+package org.bouncycastle.crypto.signers;
+
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import org.bouncycastle.util.BigIntegers;
+
+/* JADX INFO: loaded from: classes5.dex */
+public class RandomDSAKCalculator implements DSAKCalculator {
+    private static final BigInteger ZERO = BigInteger.valueOf(0);
+
+    /* JADX INFO: renamed from: q */
+    private BigInteger f4370q;
+    private SecureRandom random;
+
+    @Override // org.bouncycastle.crypto.signers.DSAKCalculator
+    public void init(BigInteger bigInteger, BigInteger bigInteger2, byte[] bArr) {
+        throw new IllegalStateException("Operation not supported");
+    }
+
+    @Override // org.bouncycastle.crypto.signers.DSAKCalculator
+    public void init(BigInteger bigInteger, SecureRandom secureRandom) {
+        this.f4370q = bigInteger;
+        this.random = secureRandom;
+    }
+
+    @Override // org.bouncycastle.crypto.signers.DSAKCalculator
+    public boolean isDeterministic() {
+        return false;
+    }
+
+    @Override // org.bouncycastle.crypto.signers.DSAKCalculator
+    public BigInteger nextK() {
+        int iBitLength = this.f4370q.bitLength();
+        while (true) {
+            BigInteger bigIntegerCreateRandomBigInteger = BigIntegers.createRandomBigInteger(iBitLength, this.random);
+            if (!bigIntegerCreateRandomBigInteger.equals(ZERO) && bigIntegerCreateRandomBigInteger.compareTo(this.f4370q) < 0) {
+                return bigIntegerCreateRandomBigInteger;
+            }
+        }
+    }
+}

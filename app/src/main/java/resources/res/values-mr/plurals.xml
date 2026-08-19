@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="one">%d नवीन सूचना</item>
+        <item quantity="other">%d नवीन सूचना</item>
+    </plurals>
+    <plurals name="start_x_day_free_trial">
+        <item quantity="one">%d दिवस मोफत चाचणी सुरू करा</item>
+        <item quantity="other">%d दिवस मोफत चाचणी सुरू करा</item>
+    </plurals>
+</resources>

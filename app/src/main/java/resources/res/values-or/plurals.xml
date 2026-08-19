@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="mtrl_badge_content_description">
+        <item quantity="one">%d new notification</item>
+        <item quantity="other">%d new notifications</item>
+    </plurals>
+    <plurals name="start_x_day_free_trial">
+        <item quantity="one">%d ଦିନ ମାଗଣା ଟ୍ରାୟଲ ଆରମ୍ଭ କରନ୍ତୁ</item>
+        <item quantity="other">%d ଦିନ ମାଗଣା ଟ୍ରାୟଲ ଆରମ୍ଭ କରନ୍ତୁ</item>
+    </plurals>
+</resources>

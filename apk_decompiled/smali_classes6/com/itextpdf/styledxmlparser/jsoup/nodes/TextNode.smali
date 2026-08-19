@@ -1,0 +1,409 @@
+.class public Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;
+.super Lcom/itextpdf/styledxmlparser/jsoup/nodes/LeafNode;
+.source "TextNode.java"
+
+
+# direct methods
+.method public constructor <init>(Ljava/lang/String;)V
+    .locals 0
+
+    .line 41
+    invoke-direct {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/LeafNode;-><init>()V
+
+    .line 42
+    iput-object p1, p0, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->value:Ljava/lang/Object;
+
+    return-void
+.end method
+
+.method public static createFromEncoded(Ljava/lang/String;)Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;
+    .locals 1
+
+    .line 133
+    invoke-static {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/Entities;->unescape(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object p0
+
+    .line 134
+    new-instance v0, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;
+
+    invoke-direct {v0, p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;-><init>(Ljava/lang/String;)V
+
+    return-object v0
+.end method
+
+.method static lastCharIsWhitespace(Ljava/lang/StringBuilder;)Z
+    .locals 2
+
+    .line 147
+    invoke-virtual {p0}, Ljava/lang/StringBuilder;->length()I
+
+    move-result v0
+
+    if-eqz v0, :cond_0
+
+    invoke-virtual {p0}, Ljava/lang/StringBuilder;->length()I
+
+    move-result v0
+
+    const/4 v1, 0x1
+
+    sub-int/2addr v0, v1
+
+    invoke-virtual {p0, v0}, Ljava/lang/StringBuilder;->charAt(I)C
+
+    move-result p0
+
+    const/16 v0, 0x20
+
+    if-ne p0, v0, :cond_0
+
+    goto :goto_0
+
+    :cond_0
+    const/4 v1, 0x0
+
+    :goto_0
+    return v1
+.end method
+
+.method static normaliseWhitespace(Ljava/lang/String;)Ljava/lang/String;
+    .locals 0
+
+    .line 138
+    invoke-static {p0}, Lcom/itextpdf/styledxmlparser/jsoup/internal/StringUtil;->normaliseWhitespace(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object p0
+
+    return-object p0
+.end method
+
+.method static stripLeadingWhitespace(Ljava/lang/String;)Ljava/lang/String;
+    .locals 2
+
+    .line 143
+    const-string v0, "^\\s+"
+
+    const-string v1, ""
+
+    invoke-virtual {p0, v0, v1}, Ljava/lang/String;->replaceFirst(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object p0
+
+    return-object p0
+.end method
+
+
+# virtual methods
+.method public clone()Ljava/lang/Object;
+    .locals 1
+
+    .line 124
+    invoke-super {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/LeafNode;->clone()Ljava/lang/Object;
+
+    move-result-object v0
+
+    check-cast v0, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;
+
+    return-object v0
+.end method
+
+.method public getWholeText()Ljava/lang/String;
+    .locals 1
+
+    .line 73
+    invoke-virtual {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->coreValue()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public isBlank()Z
+    .locals 1
+
+    .line 81
+    invoke-virtual {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->coreValue()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/itextpdf/styledxmlparser/jsoup/internal/StringUtil;->isBlank(Ljava/lang/String;)Z
+
+    move-result v0
+
+    return v0
+.end method
+
+.method public nodeName()Ljava/lang/String;
+    .locals 1
+
+    .line 46
+    const-string v0, "#text"
+
+    return-object v0
+.end method
+
+.method outerHtmlHead(Ljava/lang/Appendable;ILcom/itextpdf/styledxmlparser/jsoup/nodes/Document$OutputSettings;)V
+    .locals 9
+    .annotation system Ldalvik/annotation/Throws;
+        value = {
+            Ljava/io/IOException;
+        }
+    .end annotation
+
+    .line 106
+    invoke-virtual {p3}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/Document$OutputSettings;->prettyPrint()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_2
+
+    .line 107
+    invoke-virtual {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->siblingIndex()I
+
+    move-result v1
+
+    if-nez v1, :cond_0
+
+    iget-object v1, p0, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->parentNode:Lcom/itextpdf/styledxmlparser/jsoup/nodes/Node;
+
+    instance-of v1, v1, Lcom/itextpdf/styledxmlparser/jsoup/nodes/Element;
+
+    if-eqz v1, :cond_0
+
+    iget-object v1, p0, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->parentNode:Lcom/itextpdf/styledxmlparser/jsoup/nodes/Node;
+
+    check-cast v1, Lcom/itextpdf/styledxmlparser/jsoup/nodes/Element;
+
+    invoke-virtual {v1}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/Element;->tag()Lcom/itextpdf/styledxmlparser/jsoup/parser/Tag;
+
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/itextpdf/styledxmlparser/jsoup/parser/Tag;->formatAsBlock()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_0
+
+    invoke-virtual {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->isBlank()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_1
+
+    :cond_0
+    invoke-virtual {p3}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/Document$OutputSettings;->outline()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_2
+
+    invoke-virtual {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->siblingNodes()Ljava/util/List;
+
+    move-result-object v1
+
+    invoke-interface {v1}, Ljava/util/List;->size()I
+
+    move-result v1
+
+    if-lez v1, :cond_2
+
+    invoke-virtual {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->isBlank()Z
+
+    move-result v1
+
+    if-nez v1, :cond_2
+
+    .line 108
+    :cond_1
+    invoke-virtual {p0, p1, p2, p3}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->indent(Ljava/lang/Appendable;ILcom/itextpdf/styledxmlparser/jsoup/nodes/Document$OutputSettings;)V
+
+    :cond_2
+    const/4 p2, 0x1
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_3
+
+    .line 110
+    iget-object v2, p0, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->parentNode:Lcom/itextpdf/styledxmlparser/jsoup/nodes/Node;
+
+    invoke-static {v2}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/Element;->preserveWhitespace(Lcom/itextpdf/styledxmlparser/jsoup/nodes/Node;)Z
+
+    move-result v2
+
+    if-nez v2, :cond_3
+
+    move v7, p2
+
+    goto :goto_0
+
+    :cond_3
+    move v7, v1
+
+    :goto_0
+    if-eqz v0, :cond_4
+
+    .line 111
+    iget-object v0, p0, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->parentNode:Lcom/itextpdf/styledxmlparser/jsoup/nodes/Node;
+
+    instance-of v0, v0, Lcom/itextpdf/styledxmlparser/jsoup/nodes/Document;
+
+    if-eqz v0, :cond_4
+
+    move v8, p2
+
+    goto :goto_1
+
+    :cond_4
+    move v8, v1
+
+    .line 112
+    :goto_1
+    invoke-virtual {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->coreValue()Ljava/lang/String;
+
+    move-result-object v4
+
+    const/4 v6, 0x0
+
+    move-object v3, p1
+
+    move-object v5, p3
+
+    invoke-static/range {v3 .. v8}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/Entities;->escape(Ljava/lang/Appendable;Ljava/lang/String;Lcom/itextpdf/styledxmlparser/jsoup/nodes/Document$OutputSettings;ZZZ)V
+
+    return-void
+.end method
+
+.method outerHtmlTail(Ljava/lang/Appendable;ILcom/itextpdf/styledxmlparser/jsoup/nodes/Document$OutputSettings;)V
+    .locals 0
+
+    return-void
+.end method
+
+.method public splitText(I)Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;
+    .locals 5
+
+    .line 91
+    invoke-virtual {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->coreValue()Ljava/lang/String;
+
+    move-result-object v0
+
+    const/4 v1, 0x1
+
+    const/4 v2, 0x0
+
+    if-ltz p1, :cond_0
+
+    move v3, v1
+
+    goto :goto_0
+
+    :cond_0
+    move v3, v2
+
+    .line 92
+    :goto_0
+    const-string v4, "Split offset must be not be negative"
+
+    invoke-static {v3, v4}, Lcom/itextpdf/styledxmlparser/jsoup/helper/Validate;->isTrue(ZLjava/lang/String;)V
+
+    .line 93
+    invoke-virtual {v0}, Ljava/lang/String;->length()I
+
+    move-result v3
+
+    if-ge p1, v3, :cond_1
+
+    move v3, v1
+
+    goto :goto_1
+
+    :cond_1
+    move v3, v2
+
+    :goto_1
+    const-string v4, "Split offset must not be greater than current text length"
+
+    invoke-static {v3, v4}, Lcom/itextpdf/styledxmlparser/jsoup/helper/Validate;->isTrue(ZLjava/lang/String;)V
+
+    .line 95
+    invoke-virtual {v0, v2, p1}, Ljava/lang/String;->substring(II)Ljava/lang/String;
+
+    move-result-object v3
+
+    .line 96
+    invoke-virtual {v0, p1}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+
+    move-result-object p1
+
+    .line 97
+    invoke-virtual {p0, v3}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->text(Ljava/lang/String;)Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;
+
+    .line 98
+    new-instance v0, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;
+
+    invoke-direct {v0, p1}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;-><init>(Ljava/lang/String;)V
+
+    .line 99
+    invoke-virtual {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->parent()Lcom/itextpdf/styledxmlparser/jsoup/nodes/Node;
+
+    move-result-object p1
+
+    if-eqz p1, :cond_2
+
+    .line 100
+    invoke-virtual {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->parent()Lcom/itextpdf/styledxmlparser/jsoup/nodes/Node;
+
+    move-result-object p1
+
+    invoke-virtual {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->siblingIndex()I
+
+    move-result v3
+
+    add-int/2addr v3, v1
+
+    new-array v1, v1, [Lcom/itextpdf/styledxmlparser/jsoup/nodes/Node;
+
+    aput-object v0, v1, v2
+
+    invoke-virtual {p1, v3, v1}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/Node;->addChildren(I[Lcom/itextpdf/styledxmlparser/jsoup/nodes/Node;)V
+
+    :cond_2
+    return-object v0
+.end method
+
+.method public text(Ljava/lang/String;)Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;
+    .locals 0
+
+    .line 64
+    invoke-virtual {p0, p1}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->coreValue(Ljava/lang/String;)V
+
+    return-object p0
+.end method
+
+.method public text()Ljava/lang/String;
+    .locals 1
+
+    .line 55
+    invoke-virtual {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->getWholeText()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-static {v0}, Lcom/itextpdf/styledxmlparser/jsoup/internal/StringUtil;->normaliseWhitespace(Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method
+
+.method public toString()Ljava/lang/String;
+    .locals 1
+
+    .line 119
+    invoke-virtual {p0}, Lcom/itextpdf/styledxmlparser/jsoup/nodes/TextNode;->outerHtml()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+.end method

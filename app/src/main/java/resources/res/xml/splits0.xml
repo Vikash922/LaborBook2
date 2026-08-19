@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<splits>
+    <module name="">
+        <language>
+            <entry
+                key="bn"
+                split=""/>
+            <entry
+                key="gu"
+                split=""/>
+            <entry
+                key="hi"
+                split=""/>
+            <entry
+                key="kn"
+                split=""/>
+            <entry
+                key="ml"
+                split=""/>
+            <entry
+                key="mr"
+                split=""/>
+            <entry
+                key="or"
+                split=""/>
+            <entry
+                key="pa"
+                split=""/>
+            <entry
+                key="ta"
+                split=""/>
+            <entry
+                key="te"
+                split=""/>
+        </language>
+    </module>
+</splits>

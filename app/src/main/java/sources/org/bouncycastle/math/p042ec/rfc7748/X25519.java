@@ -1,0 +1,139 @@
+package org.bouncycastle.math.p042ec.rfc7748;
+
+import com.google.common.base.Ascii;
+import com.itextpdf.p017io.codec.TIFFConstants;
+import java.security.SecureRandom;
+import org.bouncycastle.math.p042ec.rfc8032.Ed25519;
+import org.bouncycastle.util.Arrays;
+
+/* JADX INFO: loaded from: classes5.dex */
+public abstract class X25519 {
+    private static final int C_A = 486662;
+    private static final int C_A24 = 121666;
+    public static final int POINT_SIZE = 32;
+    public static final int SCALAR_SIZE = 32;
+
+    /* JADX INFO: renamed from: org.bouncycastle.math.ec.rfc7748.X25519$F */
+    private static class C4693F extends X25519Field {
+        private C4693F() {
+        }
+    }
+
+    public static class Friend {
+        private static final Friend INSTANCE = new Friend();
+
+        private Friend() {
+        }
+    }
+
+    public static boolean calculateAgreement(byte[] bArr, int i, byte[] bArr2, int i2, byte[] bArr3, int i3) {
+        scalarMult(bArr, i, bArr2, i2, bArr3, i3);
+        return !Arrays.areAllZeroes(bArr3, i3, 32);
+    }
+
+    private static int decode32(byte[] bArr, int i) {
+        return (bArr[i + 3] << Ascii.CAN) | (bArr[i] & 255) | ((bArr[i + 1] & 255) << 8) | ((bArr[i + 2] & 255) << 16);
+    }
+
+    private static void decodeScalar(byte[] bArr, int i, int[] iArr) {
+        for (int i2 = 0; i2 < 8; i2++) {
+            iArr[i2] = decode32(bArr, (i2 * 4) + i);
+        }
+        iArr[0] = iArr[0] & (-8);
+        int i3 = iArr[7] & Integer.MAX_VALUE;
+        iArr[7] = i3;
+        iArr[7] = i3 | 1073741824;
+    }
+
+    public static void generatePrivateKey(SecureRandom secureRandom, byte[] bArr) {
+        secureRandom.nextBytes(bArr);
+        bArr[0] = (byte) (bArr[0] & 248);
+        byte b = (byte) (bArr[31] & 127);
+        bArr[31] = b;
+        bArr[31] = (byte) (b | 64);
+    }
+
+    public static void generatePublicKey(byte[] bArr, int i, byte[] bArr2, int i2) {
+        scalarMultBase(bArr, i, bArr2, i2);
+    }
+
+    private static void pointDouble(int[] iArr, int[] iArr2) {
+        int[] iArrCreate = C4693F.create();
+        int[] iArrCreate2 = C4693F.create();
+        C4693F.apm(iArr, iArr2, iArrCreate, iArrCreate2);
+        C4693F.sqr(iArrCreate, iArrCreate);
+        C4693F.sqr(iArrCreate2, iArrCreate2);
+        C4693F.mul(iArrCreate, iArrCreate2, iArr);
+        C4693F.sub(iArrCreate, iArrCreate2, iArrCreate);
+        C4693F.mul(iArrCreate, C_A24, iArr2);
+        C4693F.add(iArr2, iArrCreate2, iArr2);
+        C4693F.mul(iArr2, iArrCreate, iArr2);
+    }
+
+    public static void precompute() {
+        Ed25519.precompute();
+    }
+
+    public static void scalarMult(byte[] bArr, int i, byte[] bArr2, int i2, byte[] bArr3, int i3) {
+        int[] iArr = new int[8];
+        decodeScalar(bArr, i, iArr);
+        int[] iArrCreate = C4693F.create();
+        C4693F.decode(bArr2, i2, iArrCreate);
+        int[] iArrCreate2 = C4693F.create();
+        C4693F.copy(iArrCreate, 0, iArrCreate2, 0);
+        int[] iArrCreate3 = C4693F.create();
+        iArrCreate3[0] = 1;
+        int[] iArrCreate4 = C4693F.create();
+        iArrCreate4[0] = 1;
+        int[] iArrCreate5 = C4693F.create();
+        int[] iArrCreate6 = C4693F.create();
+        int[] iArrCreate7 = C4693F.create();
+        int i4 = TIFFConstants.TIFFTAG_SUBFILETYPE;
+        int i5 = 1;
+        while (true) {
+            C4693F.apm(iArrCreate4, iArrCreate5, iArrCreate6, iArrCreate4);
+            C4693F.apm(iArrCreate2, iArrCreate3, iArrCreate5, iArrCreate2);
+            C4693F.mul(iArrCreate6, iArrCreate2, iArrCreate6);
+            C4693F.mul(iArrCreate4, iArrCreate5, iArrCreate4);
+            C4693F.sqr(iArrCreate5, iArrCreate5);
+            C4693F.sqr(iArrCreate2, iArrCreate2);
+            C4693F.sub(iArrCreate5, iArrCreate2, iArrCreate7);
+            C4693F.mul(iArrCreate7, C_A24, iArrCreate3);
+            C4693F.add(iArrCreate3, iArrCreate2, iArrCreate3);
+            C4693F.mul(iArrCreate3, iArrCreate7, iArrCreate3);
+            C4693F.mul(iArrCreate2, iArrCreate5, iArrCreate2);
+            C4693F.apm(iArrCreate6, iArrCreate4, iArrCreate4, iArrCreate5);
+            C4693F.sqr(iArrCreate4, iArrCreate4);
+            C4693F.sqr(iArrCreate5, iArrCreate5);
+            C4693F.mul(iArrCreate5, iArrCreate, iArrCreate5);
+            i4--;
+            int i6 = (iArr[i4 >>> 5] >>> (i4 & 31)) & 1;
+            int i7 = i5 ^ i6;
+            C4693F.cswap(i7, iArrCreate2, iArrCreate4);
+            C4693F.cswap(i7, iArrCreate3, iArrCreate5);
+            if (i4 < 3) {
+                break;
+            } else {
+                i5 = i6;
+            }
+        }
+        for (int i8 = 0; i8 < 3; i8++) {
+            pointDouble(iArrCreate2, iArrCreate3);
+        }
+        C4693F.inv(iArrCreate3, iArrCreate3);
+        C4693F.mul(iArrCreate2, iArrCreate3, iArrCreate2);
+        C4693F.normalize(iArrCreate2);
+        C4693F.encode(iArrCreate2, bArr3, i3);
+    }
+
+    public static void scalarMultBase(byte[] bArr, int i, byte[] bArr2, int i2) {
+        int[] iArrCreate = C4693F.create();
+        int[] iArrCreate2 = C4693F.create();
+        Ed25519.scalarMultBaseYZ(Friend.INSTANCE, bArr, i, iArrCreate, iArrCreate2);
+        C4693F.apm(iArrCreate2, iArrCreate, iArrCreate, iArrCreate2);
+        C4693F.inv(iArrCreate2, iArrCreate2);
+        C4693F.mul(iArrCreate, iArrCreate2, iArrCreate);
+        C4693F.normalize(iArrCreate);
+        C4693F.encode(iArrCreate, bArr2, i2);
+    }
+}

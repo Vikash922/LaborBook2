@@ -1,0 +1,31 @@
+# Gradle files
+.gradle/
+build/
+**/build/**
+**/out/**
+**/.gradle/**
+
+# Local configuration files
+local.properties
+
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Android Studio specific
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Misc
+*.log
+*.classpath
+*.project
+*.settings/
+
+# Keystore files (if any)
+*.jks
+*.keystore
+gradle/wrapper/gradle-wrapper.jar

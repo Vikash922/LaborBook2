@@ -1,0 +1,195 @@
+.class public Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;
+.super Ljava/lang/Object;
+.source "PageRange.java"
+
+# interfaces
+.implements Lcom/itextpdf/kernel/utils/PageRange$IPageRangePart;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/itextpdf/kernel/utils/PageRange;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x9
+    name = "PageRangePartOddEven"
+.end annotation
+
+
+# static fields
+.field public static final EVEN:Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;
+
+.field public static final ODD:Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;
+
+
+# instance fields
+.field private final isOdd:Z
+
+.field private final mod:I
+
+
+# direct methods
+.method static constructor <clinit>()V
+    .locals 2
+
+    .line 385
+    new-instance v0, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;
+
+    const/4 v1, 0x1
+
+    invoke-direct {v0, v1}, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;-><init>(Z)V
+
+    sput-object v0, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;->ODD:Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;
+
+    .line 386
+    new-instance v0, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;
+
+    const/4 v1, 0x0
+
+    invoke-direct {v0, v1}, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;-><init>(Z)V
+
+    sput-object v0, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;->EVEN:Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;
+
+    return-void
+.end method
+
+.method private constructor <init>(Z)V
+    .locals 0
+
+    .line 388
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    .line 389
+    iput-boolean p1, p0, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;->isOdd:Z
+
+    if-eqz p1, :cond_0
+
+    const/4 p1, 0x1
+
+    .line 391
+    iput p1, p0, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;->mod:I
+
+    goto :goto_0
+
+    :cond_0
+    const/4 p1, 0x0
+
+    .line 393
+    iput p1, p0, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;->mod:I
+
+    :goto_0
+    return-void
+.end method
+
+
+# virtual methods
+.method public equals(Ljava/lang/Object;)Z
+    .locals 2
+
+    .line 416
+    instance-of v0, p1, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;
+
+    const/4 v1, 0x0
+
+    if-nez v0, :cond_0
+
+    return v1
+
+    .line 420
+    :cond_0
+    check-cast p1, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;
+
+    .line 421
+    iget-boolean v0, p0, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;->isOdd:Z
+
+    iget-boolean p1, p1, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;->isOdd:Z
+
+    if-ne v0, p1, :cond_1
+
+    const/4 v1, 0x1
+
+    :cond_1
+    return v1
+.end method
+
+.method public getAllPagesInRange(I)Ljava/util/List;
+    .locals 3
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(I)",
+            "Ljava/util/List<",
+            "Ljava/lang/Integer;",
+            ">;"
+        }
+    .end annotation
+
+    .line 399
+    new-instance v0, Ljava/util/ArrayList;
+
+    invoke-direct {v0}, Ljava/util/ArrayList;-><init>()V
+
+    .line 400
+    iget v1, p0, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;->mod:I
+
+    if-nez v1, :cond_0
+
+    const/4 v1, 0x2
+
+    :cond_0
+    :goto_0
+    if-gt v1, p1, :cond_1
+
+    .line 401
+    invoke-static {v1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+
+    move-result-object v2
+
+    invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
+
+    add-int/lit8 v1, v1, 0x2
+
+    goto :goto_0
+
+    :cond_1
+    return-object v0
+.end method
+
+.method public hashCode()I
+    .locals 1
+
+    .line 429
+    iget-boolean v0, p0, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;->isOdd:Z
+
+    if-eqz v0, :cond_0
+
+    const/16 v0, 0x7f
+
+    return v0
+
+    :cond_0
+    const/16 v0, 0x80
+
+    return v0
+.end method
+
+.method public isPageInRange(I)Z
+    .locals 1
+
+    .line 408
+    rem-int/lit8 p1, p1, 0x2
+
+    iget v0, p0, Lcom/itextpdf/kernel/utils/PageRange$PageRangePartOddEven;->mod:I
+
+    if-ne p1, v0, :cond_0
+
+    const/4 p1, 0x1
+
+    goto :goto_0
+
+    :cond_0
+    const/4 p1, 0x0
+
+    :goto_0
+    return p1
+.end method

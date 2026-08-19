@@ -1,0 +1,707 @@
+package com.itextpdf.p017io.codec;
+
+import com.google.common.base.Ascii;
+import com.itextpdf.p017io.exceptions.IOException;
+import kotlin.p024io.encoding.Base64;
+import okio.Utf8;
+import org.bouncycastle.asn1.BERTags;
+import org.bouncycastle.crypto.signers.PSSSigner;
+
+/* JADX INFO: loaded from: classes6.dex */
+public class TIFFFaxDecompressor {
+    private int bitPointer;
+    private int bitsPerScanline;
+    private byte[] buffer;
+    private int bytePointer;
+    protected int compression;
+    private int[] currChangingElems;
+    private byte[] data;
+    public int fails;
+    protected int fillOrder;
+
+    /* JADX INFO: renamed from: h */
+    private int f2858h;
+    private int lineBitNum;
+    protected int oneD;
+    private int[] prevChangingElems;
+    private int t4Options;
+    private int t6Options;
+
+    /* JADX INFO: renamed from: w */
+    private int f2859w;
+    static int[] table1 = {0, 1, 3, 7, 15, 31, 63, 127, 255};
+    static int[] table2 = {0, 128, 192, BERTags.FLAGS, 240, 248, 252, TIFFConstants.TIFFTAG_SUBFILETYPE, 255};
+    static byte[] flipTable = {0, -128, 64, -64, 32, -96, 96, -32, 16, -112, 80, -48, 48, -80, 112, -16, 8, -120, 72, -56, 40, -88, 104, -24, Ascii.CAN, -104, 88, -40, 56, -72, 120, -8, 4, -124, 68, -60, 36, -92, 100, -28, Ascii.DC4, -108, 84, -44, 52, -76, 116, -12, Ascii.f386FF, -116, 76, -52, 44, -84, 108, -20, Ascii.f387FS, -100, 92, -36, 60, PSSSigner.TRAILER_IMPLICIT, 124, -4, 2, -126, 66, -62, 34, -94, 98, -30, Ascii.DC2, -110, 82, -46, 50, -78, 114, -14, 10, -118, 74, -54, 42, -86, 106, -22, Ascii.SUB, -102, 90, -38, 58, -70, 122, -6, 6, -122, 70, -58, 38, -90, 102, -26, Ascii.SYN, -106, 86, -42, 54, -74, 118, -10, Ascii.f394SO, -114, 78, -50, 46, -82, 110, -18, Ascii.f392RS, -98, 94, -34, 62, -66, 126, -2, 1, -127, 65, -63, 33, -95, 97, -31, 17, -111, 81, -47, 49, -79, 113, -15, 9, -119, 73, -55, 41, -87, 105, -23, Ascii.f385EM, -103, 89, -39, 57, -71, 121, -7, 5, -123, 69, -59, 37, -91, 101, -27, Ascii.NAK, -107, 85, -43, 53, -75, 117, -11, Ascii.f384CR, -115, 77, -51, 45, -83, 109, -19, Ascii.f388GS, -99, 93, -35, Base64.padSymbol, -67, 125, -3, 3, -125, 67, -61, 35, -93, 99, -29, 19, -109, 83, -45, 51, -77, 115, -13, Ascii.f397VT, -117, 75, -53, 43, -85, 107, -21, Ascii.ESC, -101, 91, -37, 59, -69, 123, -5, 7, -121, 71, -57, 39, -89, 103, -25, Ascii.ETB, -105, 87, -41, 55, -73, 119, -9, Ascii.f393SI, -113, 79, -49, 47, -81, 111, -17, Ascii.f396US, -97, 95, -33, Utf8.REPLACEMENT_BYTE, -65, 127, -1};
+    static short[] white = {6430, 6400, 6400, 6400, 3225, 3225, 3225, 3225, 944, 944, 944, 944, 976, 976, 976, 976, 1456, 1456, 1456, 1456, 1488, 1488, 1488, 1488, 718, 718, 718, 718, 718, 718, 718, 718, 750, 750, 750, 750, 750, 750, 750, 750, 1520, 1520, 1520, 1520, 1552, 1552, 1552, 1552, 428, 428, 428, 428, 428, 428, 428, 428, 428, 428, 428, 428, 428, 428, 428, 428, 654, 654, 654, 654, 654, 654, 654, 654, 1072, 1072, 1072, 1072, 1104, 1104, 1104, 1104, 1136, 1136, 1136, 1136, 1168, 1168, 1168, 1168, 1200, 1200, 1200, 1200, 1232, 1232, 1232, 1232, 622, 622, 622, 622, 622, 622, 622, 622, 1008, 1008, 1008, 1008, 1040, 1040, 1040, 1040, 44, 44, 44, 44, 44, 44, 44, 44, 44, 44, 44, 44, 44, 44, 44, 44, 396, 396, 396, 396, 396, 396, 396, 396, 396, 396, 396, 396, 396, 396, 396, 396, 1712, 1712, 1712, 1712, 1744, 1744, 1744, 1744, 846, 846, 846, 846, 846, 846, 846, 846, 1264, 1264, 1264, 1264, 1296, 1296, 1296, 1296, 1328, 1328, 1328, 1328, 1360, 1360, 1360, 1360, 1392, 1392, 1392, 1392, 1424, 1424, 1424, 1424, 686, 686, 686, 686, 686, 686, 686, 686, 910, 910, 910, 910, 910, 910, 910, 910, 1968, 1968, 1968, 1968, 2000, 2000, 2000, 2000, 2032, 2032, 2032, 2032, 16, 16, 16, 16, 10257, 10257, 10257, 10257, 12305, 12305, 12305, 12305, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 330, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 362, 878, 878, 878, 878, 878, 878, 878, 878, 1904, 1904, 1904, 1904, 1936, 1936, 1936, 1936, -18413, -18413, -16365, -16365, -14317, -14317, -10221, -10221, 590, 590, 590, 590, 590, 590, 590, 590, 782, 782, 782, 782, 782, 782, 782, 782, 1584, 1584, 1584, 1584, 1616, 1616, 1616, 1616, 1648, 1648, 1648, 1648, 1680, 1680, 1680, 1680, 814, 814, 814, 814, 814, 814, 814, 814, 1776, 1776, 1776, 1776, 1808, 1808, 1808, 1808, 1840, 1840, 1840, 1840, 1872, 1872, 1872, 1872, 6157, 6157, 6157, 6157, 6157, 6157, 6157, 6157, 6157, 6157, 6157, 6157, 6157, 6157, 6157, 6157, -12275, -12275, -12275, -12275, -12275, -12275, -12275, -12275, -12275, -12275, -12275, -12275, -12275, -12275, -12275, -12275, 14353, 14353, 14353, 14353, 16401, 16401, 16401, 16401, 22547, 22547, 24595, 24595, 20497, 20497, 20497, 20497, 18449, 18449, 18449, 18449, 26643, 26643, 28691, 28691, 30739, 30739, -32749, -32749, -30701, -30701, -28653, -28653, -26605, -26605, -24557, -24557, -22509, -22509, -20461, -20461, 8207, 8207, 8207, 8207, 8207, 8207, 8207, 8207, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 72, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 104, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 4107, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 266, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 298, 524, 524, 524, 524, 524, 524, 524, 524, 524, 524, 524, 524, 524, 524, 524, 524, 556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 556, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 136, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 168, 460, 460, 460, 460, 460, 460, 460, 460, 460, 460, 460, 460, 460, 460, 460, 460, 492, 492, 492, 492, 492, 492, 492, 492, 492, 492, 492, 492, 492, 492, 492, 492, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 2059, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 
+    232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232, 232};
+    public static short[] additionalMakeup = {28679, 28679, 31752, -32759, -31735, -30711, -29687, -28663, 29703, 29703, 30727, 30727, -27639, -26615, -25591, -24567};
+    static short[] initBlack = {3226, 6412, 200, 168, 38, 38, 134, 134, 100, 100, 100, 100, 68, 68, 68, 68};
+    static short[] twoBitBlack = {292, 260, 226, 226};
+    static short[] black = {62, 62, 30, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 3225, 588, 588, 588, 588, 588, 588, 588, 588, 1680, 1680, 20499, 22547, 24595, 26643, 1776, 1776, 1808, 1808, -24557, -22509, -20461, -18413, 1904, 1904, 1936, 1936, -16365, -14317, 782, 782, 782, 782, 814, 814, 814, 814, -12269, -10221, 10257, 10257, 12305, 12305, 14353, 14353, 16403, 18451, 1712, 1712, 1744, 1744, 28691, 30739, -32749, -30701, -28653, -26605, 2061, 2061, 2061, 2061, 2061, 2061, 2061, 2061, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 424, 750, 750, 750, 750, 1616, 1616, 1648, 1648, 1424, 1424, 1456, 1456, 1488, 1488, 1520, 1520, 1840, 1840, 1872, 1872, 1968, 1968, 8209, 8209, 524, 524, 524, 524, 524, 524, 524, 524, 556, 556, 556, 556, 556, 556, 556, 556, 1552, 1552, 1584, 1584, 2000, 2000, 2032, 2032, 976, 976, 1008, 1008, 1040, 1040, 1072, 1072, 1296, 1296, 1328, 1328, 718, 718, 718, 718, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 456, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 326, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 358, 490, 490, 490, 490, 490, 490, 490, 490, 490, 490, 490, 490, 490, 490, 490, 490, 4113, 4113, 6161, 6161, 848, 848, 880, 880, 912, 912, 944, 944, 622, 622, 622, 622, 654, 654, 654, 654, 1104, 1104, 1136, 1136, 1168, 1168, 1200, 1200, 1232, 1232, 1264, 1264, 686, 686, 686, 686, 1360, 1360, 1392, 1392, 12, 12, 12, 12, 12, 12, 12, 12, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390, 390};
+    static byte[] twoDCodes = {80, 88, Ascii.ETB, 71, Ascii.f392RS, Ascii.f392RS, 62, 62, 4, 4, 4, 4, 4, 4, 4, 4, Ascii.f397VT, Ascii.f397VT, Ascii.f397VT, Ascii.f397VT, Ascii.f397VT, Ascii.f397VT, Ascii.f397VT, Ascii.f397VT, Ascii.f397VT, Ascii.f397VT, Ascii.f397VT, Ascii.f397VT, Ascii.f397VT, Ascii.f397VT, Ascii.f397VT, Ascii.f397VT, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 35, 51, 51, 51, 51, 51, 51, 51, 51, 51, 51, 51, 51, 51, 51, 51, 51, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41};
+    protected int uncompressedMode = 0;
+    protected int fillBits = 0;
+    private int changingElemSize = 0;
+    private int lastChangingElement = 0;
+    private final Object lock = new Object();
+
+    public void SetOptions(int i, int i2, int i3, int i4) {
+        this.fillOrder = i;
+        this.compression = i2;
+        this.t4Options = i3;
+        this.t6Options = i4;
+        this.oneD = i3 & 1;
+        this.uncompressedMode = (i3 & 2) >> 1;
+        this.fillBits = (i3 & 4) >> 2;
+    }
+
+    public void decodeRaw(byte[] bArr, byte[] bArr2, int i, int i2) {
+        this.buffer = bArr;
+        this.data = bArr2;
+        this.f2859w = i;
+        this.f2858h = i2;
+        this.bitsPerScanline = i;
+        this.lineBitNum = 0;
+        this.bitPointer = 0;
+        this.bytePointer = 0;
+        int i3 = i + 1;
+        this.prevChangingElems = new int[i3];
+        this.currChangingElems = new int[i3];
+        this.fails = 0;
+        try {
+            int i4 = this.compression;
+            if (i4 == 2) {
+                decodeRLE();
+                return;
+            }
+            if (i4 == 3) {
+                decodeT4();
+            } else {
+                if (i4 == 4) {
+                    this.uncompressedMode = (this.t6Options & 2) >> 1;
+                    decodeT6();
+                    return;
+                }
+                throw new IOException(IOException.UnknownCompressionType1).setMessageParams(Integer.valueOf(this.compression));
+            }
+        } catch (ArrayIndexOutOfBoundsException unused) {
+        }
+    }
+
+    public void decodeRLE() {
+        for (int i = 0; i < this.f2858h; i++) {
+            decodeNextScanline();
+            if (this.bitPointer != 0) {
+                this.bytePointer++;
+                this.bitPointer = 0;
+            }
+            this.lineBitNum += this.bitsPerScanline;
+        }
+    }
+
+    public void decodeNextScanline() {
+        this.changingElemSize = 0;
+        int i = 0;
+        boolean z = true;
+        while (true) {
+            if (i >= this.f2859w) {
+                break;
+            }
+            int i2 = i;
+            while (z && i2 < this.f2859w) {
+                int iNextNBits = nextNBits(10);
+                short s = white[iNextNBits];
+                int i3 = s & 1;
+                int i4 = (s >>> 1) & 15;
+                if (i4 == 12) {
+                    short s2 = additionalMakeup[(12 & (iNextNBits << 2)) | nextLesserThan8Bits(2)];
+                    i2 += (s2 >>> 4) & 4095;
+                    updatePointer(4 - ((s2 >>> 1) & 7));
+                } else if (i4 == 0) {
+                    this.fails++;
+                } else {
+                    if (i4 == 15) {
+                        this.fails++;
+                        return;
+                    }
+                    i2 += (s >>> 5) & 2047;
+                    updatePointer(10 - i4);
+                    if (i3 == 0) {
+                        int[] iArr = this.currChangingElems;
+                        int i5 = this.changingElemSize;
+                        this.changingElemSize = i5 + 1;
+                        iArr[i5] = i2;
+                        z = false;
+                    }
+                }
+            }
+            if (i2 == this.f2859w) {
+                int i6 = i2 - i;
+                if (z && i6 != 0 && i6 % 64 == 0 && nextNBits(8) != 53) {
+                    this.fails++;
+                    updatePointer(8);
+                }
+                i = i2;
+            } else {
+                i = i2;
+                while (!z && i < this.f2859w) {
+                    short s3 = initBlack[nextLesserThan8Bits(4)];
+                    int i7 = (s3 >>> 1) & 15;
+                    int i8 = (s3 >>> 5) & 2047;
+                    if (i8 == 100) {
+                        short s4 = black[nextNBits(9)];
+                        int i9 = s4 & 1;
+                        int i10 = (s4 >>> 1) & 15;
+                        int i11 = (s4 >>> 5) & 2047;
+                        if (i10 == 12) {
+                            updatePointer(5);
+                            short s5 = additionalMakeup[nextLesserThan8Bits(4)];
+                            int i12 = (s5 >>> 1) & 7;
+                            int i13 = (s5 >>> 4) & 4095;
+                            setToBlack(i, i13);
+                            i += i13;
+                            updatePointer(4 - i12);
+                        } else {
+                            if (i10 == 15) {
+                                this.fails++;
+                                return;
+                            }
+                            setToBlack(i, i11);
+                            i += i11;
+                            updatePointer(9 - i10);
+                            if (i9 == 0) {
+                                int[] iArr2 = this.currChangingElems;
+                                int i14 = this.changingElemSize;
+                                this.changingElemSize = i14 + 1;
+                                iArr2[i14] = i;
+                            }
+                        }
+                    } else if (i8 == 200) {
+                        short s6 = twoBitBlack[nextLesserThan8Bits(2)];
+                        int i15 = (s6 >>> 5) & 2047;
+                        setToBlack(i, i15);
+                        i += i15;
+                        updatePointer(2 - ((s6 >>> 1) & 15));
+                        int[] iArr3 = this.currChangingElems;
+                        int i16 = this.changingElemSize;
+                        this.changingElemSize = i16 + 1;
+                        iArr3[i16] = i;
+                    } else {
+                        setToBlack(i, i8);
+                        i += i8;
+                        updatePointer(4 - i7);
+                        int[] iArr4 = this.currChangingElems;
+                        int i17 = this.changingElemSize;
+                        this.changingElemSize = i17 + 1;
+                        iArr4[i17] = i;
+                    }
+                    z = true;
+                }
+                if (i == this.f2859w) {
+                    int i18 = i - i2;
+                    if (!z && i18 != 0 && i18 % 64 == 0 && nextNBits(10) != 55) {
+                        this.fails++;
+                        updatePointer(10);
+                    }
+                }
+            }
+        }
+        int[] iArr5 = this.currChangingElems;
+        int i19 = this.changingElemSize;
+        this.changingElemSize = i19 + 1;
+        iArr5[i19] = i;
+    }
+
+    /* JADX WARN: Code restructure failed: missing block: B:37:0x00d9, code lost:
+    
+        r15.fails++;
+        r8 = 0;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:38:0x00df, code lost:
+    
+        if (r5 == 1) goto L70;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:39:0x00e1, code lost:
+    
+        r5 = findNextLine();
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:40:0x00e5, code lost:
+    
+        r8 = r8 + 1;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:41:0x00e8, code lost:
+    
+        return;
+     */
+    /* JADX WARN: Code restructure failed: missing block: B:42:0x00e9, code lost:
+    
+        r6 = r6 + (r8 - 1);
+        updatePointer(13);
+     */
+    /*
+        Code decompiled incorrectly, please refer to instructions dump.
+        To view partially-correct add '--show-bad-code' argument
+    */
+    public void decodeT4() {
+        /*
+            Method dump skipped, instruction units count: 277
+            To view this dump add '--comments-level debug' option
+        */
+        throw new UnsupportedOperationException("Method not decompiled: com.itextpdf.p017io.codec.TIFFFaxDecompressor.decodeT4():void");
+    }
+
+    /* JADX WARN: Multi-variable type inference failed */
+    /* JADX WARN: Type inference failed for: r11v14 */
+    public void decodeT6() {
+        int i;
+        boolean z;
+        int i2;
+        boolean z2;
+        synchronized (this.lock) {
+            int i3 = this.f2858h;
+            int[] iArr = new int[2];
+            int[] iArr2 = this.currChangingElems;
+            char c = 1;
+            this.changingElemSize = 1;
+            int i4 = this.f2859w;
+            int i5 = 0;
+            iArr2[0] = i4;
+            this.changingElemSize = 1 + 1;
+            iArr2[1] = i4;
+            int i6 = 0;
+            while (i6 < i3) {
+                int[] iArr3 = this.prevChangingElems;
+                this.prevChangingElems = this.currChangingElems;
+                this.currChangingElems = iArr3;
+                this.lastChangingElement = i5;
+                int i7 = -1;
+                boolean z3 = c;
+                int iDecodeWhiteCodeWord = i5;
+                int i8 = iDecodeWhiteCodeWord;
+                while (true) {
+                    i = this.f2859w;
+                    if (iDecodeWhiteCodeWord >= i) {
+                        break;
+                    }
+                    getNextChangingElement(i7, z3, iArr);
+                    int i9 = iArr[i5];
+                    int i10 = iArr[c];
+                    int i11 = twoDCodes[nextLesserThan8Bits(7)];
+                    int i12 = (i11 & 120) >>> 3;
+                    int i13 = 7 & i11;
+                    if (i12 == 0) {
+                        if (z3 == 0) {
+                            int i14 = this.f2859w;
+                            if (i10 > i14) {
+                                i10 = i14;
+                            }
+                            setToBlack(iDecodeWhiteCodeWord, i10 - iDecodeWhiteCodeWord);
+                        }
+                        iDecodeWhiteCodeWord = i10;
+                        updatePointer(7 - i13);
+                        z3 = z3;
+                    } else if (i12 == 1) {
+                        updatePointer(7 - i13);
+                        if (z3 != 0) {
+                            int iDecodeWhiteCodeWord2 = iDecodeWhiteCodeWord + decodeWhiteCodeWord();
+                            int i15 = i8 + 1;
+                            iArr3[i8] = iDecodeWhiteCodeWord2;
+                            int iDecodeBlackCodeWord = decodeBlackCodeWord();
+                            int i16 = this.f2859w;
+                            if (iDecodeBlackCodeWord > i16 - iDecodeWhiteCodeWord2) {
+                                iDecodeBlackCodeWord = i16 - iDecodeWhiteCodeWord2;
+                            }
+                            setToBlack(iDecodeWhiteCodeWord2, iDecodeBlackCodeWord);
+                            iDecodeWhiteCodeWord = iDecodeWhiteCodeWord2 + iDecodeBlackCodeWord;
+                            i8 += 2;
+                            iArr3[i15] = iDecodeWhiteCodeWord;
+                            z3 = z3;
+                        } else {
+                            int iDecodeBlackCodeWord2 = decodeBlackCodeWord();
+                            int i17 = this.f2859w;
+                            if (iDecodeBlackCodeWord2 > i17 - iDecodeWhiteCodeWord) {
+                                iDecodeBlackCodeWord2 = i17 - iDecodeWhiteCodeWord;
+                            }
+                            setToBlack(iDecodeWhiteCodeWord, iDecodeBlackCodeWord2);
+                            int i18 = iDecodeWhiteCodeWord + iDecodeBlackCodeWord2;
+                            int i19 = i8 + 1;
+                            iArr3[i8] = i18;
+                            iDecodeWhiteCodeWord = i18 + decodeWhiteCodeWord();
+                            i8 += 2;
+                            iArr3[i19] = iDecodeWhiteCodeWord;
+                            z3 = z3;
+                        }
+                    } else if (i12 <= 8) {
+                        int i20 = i9 + (i12 - 5);
+                        int i21 = i8 + 1;
+                        iArr3[i8] = i20;
+                        if (z3 == 0) {
+                            int i22 = this.f2859w;
+                            if (i20 > i22) {
+                                i20 = i22;
+                            }
+                            setToBlack(iDecodeWhiteCodeWord, i20 - iDecodeWhiteCodeWord);
+                        }
+                        iDecodeWhiteCodeWord = i20;
+                        boolean z4 = !z3;
+                        updatePointer(7 - i13);
+                        i8 = i21;
+                        z3 = z4;
+                    } else {
+                        if (i12 == 11) {
+                            nextLesserThan8Bits(3);
+                            int i23 = 0;
+                            boolean z5 = false;
+                            while (!z5) {
+                                while (nextLesserThan8Bits(1) != 1) {
+                                    i23++;
+                                }
+                                boolean z6 = z3;
+                                if (i23 > 5) {
+                                    i23 -= 6;
+                                    if (z3 == 0 && i23 > 0) {
+                                        iArr3[i8] = iDecodeWhiteCodeWord;
+                                        i8++;
+                                    }
+                                    iDecodeWhiteCodeWord += i23;
+                                    if (i23 > 0) {
+                                        i2 = 1;
+                                        z = true;
+                                    } else {
+                                        z = z3 ? 1 : 0;
+                                        i2 = 1;
+                                    }
+                                    if (nextLesserThan8Bits(i2) == 0) {
+                                        if (!z) {
+                                            iArr3[i8] = iDecodeWhiteCodeWord;
+                                            i8++;
+                                        }
+                                        z2 = true;
+                                    } else {
+                                        if (z) {
+                                            iArr3[i8] = iDecodeWhiteCodeWord;
+                                            i8++;
+                                        }
+                                        z2 = false;
+                                    }
+                                    z6 = z2;
+                                    z5 = true;
+                                }
+                                if (i23 == 5) {
+                                    if (!z6) {
+                                        iArr3[i8] = iDecodeWhiteCodeWord;
+                                        i8++;
+                                    }
+                                    iDecodeWhiteCodeWord += i23;
+                                    z3 = 1;
+                                } else {
+                                    int i24 = iDecodeWhiteCodeWord + i23;
+                                    iArr3[i8] = i24;
+                                    setToBlack(i24, 1);
+                                    iDecodeWhiteCodeWord = i24 + 1;
+                                    i8++;
+                                    z3 = 0;
+                                }
+                            }
+                        }
+                        c = 1;
+                        i5 = 0;
+                        z3 = z3;
+                    }
+                    i7 = iDecodeWhiteCodeWord;
+                    c = 1;
+                    i5 = 0;
+                    z3 = z3;
+                }
+                char c2 = c;
+                if (i8 <= i) {
+                    iArr3[i8] = iDecodeWhiteCodeWord;
+                    i8++;
+                }
+                this.changingElemSize = i8;
+                this.lineBitNum += this.bitsPerScanline;
+                i6++;
+                c = c2;
+                i5 = 0;
+            }
+        }
+    }
+
+    private void setToBlack(int i, int i2) {
+        int i3 = i + this.lineBitNum;
+        int i4 = i2 + i3;
+        int i5 = i3 >> 3;
+        int i6 = i3 & 7;
+        if (i6 > 0) {
+            int i7 = 1 << (7 - i6);
+            byte b = this.buffer[i5];
+            while (i7 > 0 && i3 < i4) {
+                b = (byte) (b | ((byte) i7));
+                i7 >>= 1;
+                i3++;
+            }
+            this.buffer[i5] = b;
+        }
+        int i8 = i3 >> 3;
+        while (i3 < i4 - 7) {
+            this.buffer[i8] = -1;
+            i3 += 8;
+            i8++;
+        }
+        while (i3 < i4) {
+            int i9 = i3 >> 3;
+            byte[] bArr = this.buffer;
+            bArr[i9] = (byte) (bArr[i9] | ((byte) (1 << (7 - (i3 & 7)))));
+            i3++;
+        }
+    }
+
+    private int decodeWhiteCodeWord() {
+        boolean z = true;
+        int i = 0;
+        while (z) {
+            int iNextNBits = nextNBits(10);
+            short s = white[iNextNBits];
+            int i2 = s & 1;
+            int i3 = (s >>> 1) & 15;
+            if (i3 == 12) {
+                short s2 = additionalMakeup[((iNextNBits << 2) & 12) | nextLesserThan8Bits(2)];
+                i += (s2 >>> 4) & 4095;
+                updatePointer(4 - ((s2 >>> 1) & 7));
+            } else {
+                if (i3 == 0) {
+                    throw new RuntimeException("Error 0");
+                }
+                if (i3 == 15) {
+                    throw new RuntimeException("Error 1");
+                }
+                i += (s >>> 5) & 2047;
+                updatePointer(10 - i3);
+                if (i2 == 0) {
+                    z = false;
+                }
+            }
+        }
+        return i;
+    }
+
+    private int decodeBlackCodeWord() {
+        boolean z = false;
+        int i = 0;
+        while (!z) {
+            short s = initBlack[nextLesserThan8Bits(4)];
+            int i2 = (s >>> 1) & 15;
+            int i3 = (s >>> 5) & 2047;
+            if (i3 == 100) {
+                short s2 = black[nextNBits(9)];
+                int i4 = s2 & 1;
+                int i5 = (s2 >>> 1) & 15;
+                int i6 = (s2 >>> 5) & 2047;
+                if (i5 == 12) {
+                    updatePointer(5);
+                    short s3 = additionalMakeup[nextLesserThan8Bits(4)];
+                    i += (s3 >>> 4) & 4095;
+                    updatePointer(4 - ((s3 >>> 1) & 7));
+                } else {
+                    if (i5 == 15) {
+                        throw new RuntimeException("Error 2");
+                    }
+                    i += i6;
+                    updatePointer(9 - i5);
+                    if (i4 == 0) {
+                    }
+                }
+            } else if (i3 == 200) {
+                short s4 = twoBitBlack[nextLesserThan8Bits(2)];
+                i += (s4 >>> 5) & 2047;
+                updatePointer(2 - ((s4 >>> 1) & 15));
+            } else {
+                i += i3;
+                updatePointer(4 - i2);
+            }
+            z = true;
+        }
+        return i;
+    }
+
+    private int findNextLine() {
+        int length = this.data.length * 8;
+        int i = length - 1;
+        int i2 = length - 13;
+        int i3 = (this.bytePointer * 8) + this.bitPointer;
+        while (i3 <= i2) {
+            int iNextNBits = nextNBits(12);
+            i3 += 12;
+            while (iNextNBits != 1 && i3 < i) {
+                iNextNBits = ((iNextNBits & 2047) << 1) | (1 & nextLesserThan8Bits(1));
+                i3++;
+            }
+            if (iNextNBits == 1) {
+                if (this.oneD != 1) {
+                    return 1;
+                }
+                if (i3 < i) {
+                    return nextLesserThan8Bits(1);
+                }
+            }
+        }
+        throw new RuntimeException();
+    }
+
+    private void getNextChangingElement(int i, boolean z, int[] iArr) {
+        int[] iArr2 = this.prevChangingElems;
+        int i2 = this.changingElemSize;
+        int i3 = this.lastChangingElement;
+        int i4 = i3 > 0 ? i3 - 1 : 0;
+        int i5 = z ? i4 & (-2) : i4 | 1;
+        while (true) {
+            if (i5 >= i2) {
+                break;
+            }
+            int i6 = iArr2[i5];
+            if (i6 > i) {
+                this.lastChangingElement = i5;
+                iArr[0] = i6;
+                break;
+            }
+            i5 += 2;
+        }
+        int i7 = i5 + 1;
+        if (i7 < i2) {
+            iArr[1] = iArr2[i7];
+        }
+    }
+
+    private int nextNBits(int i) {
+        byte b;
+        byte b2;
+        byte b3;
+        byte b4;
+        byte b5;
+        int i2;
+        int i3;
+        byte[] bArr = this.data;
+        int length = bArr.length - 1;
+        int i4 = this.bytePointer;
+        int i5 = this.fillOrder;
+        if (i5 == 1) {
+            b3 = bArr[i4];
+            if (i4 != length) {
+                int i6 = i4 + 1;
+                if (i6 == length) {
+                    b4 = bArr[i6];
+                    b5 = 0;
+                } else {
+                    b = bArr[i6];
+                    b2 = bArr[i4 + 2];
+                    byte b6 = b;
+                    b5 = b2;
+                    b4 = b6;
+                }
+            }
+            b4 = 0;
+            b5 = 0;
+        } else if (i5 == 2) {
+            byte[] bArr2 = flipTable;
+            byte b7 = bArr2[bArr[i4] & 255];
+            if (i4 == length) {
+                b3 = b7;
+                b4 = 0;
+                b5 = 0;
+            } else {
+                int i7 = i4 + 1;
+                if (i7 == length) {
+                    b4 = bArr2[bArr[i7] & 255];
+                    b3 = b7;
+                    b5 = 0;
+                } else {
+                    b = bArr2[bArr[i7] & 255];
+                    b2 = bArr2[bArr[i4 + 2] & 255];
+                    b3 = b7;
+                    byte b62 = b;
+                    b5 = b2;
+                    b4 = b62;
+                }
+            }
+        } else {
+            throw new RuntimeException("Invalid FillOrder");
+        }
+        int i8 = 8 - this.bitPointer;
+        int i9 = i - i8;
+        if (i9 > 8) {
+            i3 = i9 - 8;
+            i2 = 8;
+        } else {
+            i2 = i9;
+            i3 = 0;
+        }
+        this.bytePointer = i4 + 1;
+        int i10 = (b3 & table1[i8]) << i9;
+        int[] iArr = table2;
+        int i11 = (b4 & iArr[i2]) >>> (8 - i2);
+        if (i3 != 0) {
+            i11 = (i11 << i3) | ((b5 & iArr[i3]) >>> (8 - i3));
+            this.bytePointer = i4 + 2;
+            this.bitPointer = i3;
+        } else if (i2 == 8) {
+            this.bitPointer = 0;
+            this.bytePointer = i4 + 2;
+        } else {
+            this.bitPointer = i2;
+        }
+        return i10 | i11;
+    }
+
+    private int nextLesserThan8Bits(int i) {
+        byte b;
+        byte b2;
+        byte[] bArr = this.data;
+        int length = bArr.length - 1;
+        int i2 = this.bytePointer;
+        int i3 = this.fillOrder;
+        if (i3 == 1) {
+            b2 = bArr[i2];
+            b = i2 == length ? (byte) 0 : bArr[i2 + 1];
+        } else if (i3 == 2) {
+            byte[] bArr2 = flipTable;
+            byte b3 = bArr2[bArr[i2] & 255];
+            b = i2 == length ? (byte) 0 : bArr2[bArr[i2 + 1] & 255];
+            b2 = b3;
+        } else {
+            throw new RuntimeException("Invalid FillOrder");
+        }
+        int i4 = this.bitPointer;
+        int i5 = 8 - i4;
+        int i6 = i - i5;
+        int i7 = i5 - i;
+        if (i7 >= 0) {
+            int i8 = (table1[i5] & b2) >>> i7;
+            int i9 = i4 + i;
+            this.bitPointer = i9;
+            if (i9 != 8) {
+                return i8;
+            }
+            this.bitPointer = 0;
+            this.bytePointer = i2 + 1;
+            return i8;
+        }
+        int i10 = ((b & table2[i6]) >>> (8 - i6)) | ((table1[i5] & b2) << (-i7));
+        this.bytePointer = i2 + 1;
+        this.bitPointer = i6;
+        return i10;
+    }
+
+    private void updatePointer(int i) {
+        if (i > 8) {
+            this.bytePointer -= i / 8;
+            i %= 8;
+        }
+        int i2 = this.bitPointer - i;
+        if (i2 < 0) {
+            this.bytePointer--;
+            this.bitPointer = i2 + 8;
+        } else {
+            this.bitPointer = i2;
+        }
+    }
+}
