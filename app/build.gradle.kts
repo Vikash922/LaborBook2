@@ -3,11 +3,6 @@ plugins {
     id("org.jetbrains.kotlin.android") version "1.7.10"
 }
 
-repositories {
-    google()
-    mavenCentral()
-}
-
 android {
     namespace = "com.laborbook"
     compileSdk = 33
