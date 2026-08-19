@@ -298,16 +298,16 @@ public final class R {
         public static int Theme_text20Color = 0x0000000a;
         public static int Theme_text22Color = 0x0000000b;
         public static int Title_isHeaderText;
-        public static int[] ActionButton = {com.laborbook.R.attr.buttonDisabledBgColor, com.laborbook.R.attr.buttonDisabledTextColor, com.laborbook.R.attr.buttonEnabledBgColor, com.laborbook.R.attr.buttonEnabledTextColor, com.laborbook.R.attr.buttonGreenColor, com.laborbook.R.attr.buttonProgressColor, com.laborbook.R.attr.buttonRedColor, com.laborbook.R.attr.buttonTextColor};
-        public static int[] Caption = {com.laborbook.R.attr.isDarkBlack, com.laborbook.R.attr.isDarkGrey, com.laborbook.R.attr.isDarkSilver, com.laborbook.R.attr.isHeaderText, com.laborbook.R.attr.isMukta};
-        public static int[] H2 = {com.laborbook.R.attr.timerErrorText, com.laborbook.R.attr.timerText};
-        public static int[] H6 = {com.laborbook.R.attr.isHeaderText, com.laborbook.R.attr.isMukta, com.laborbook.R.attr.timerErrorText, com.laborbook.R.attr.timerText};
-        public static int[] H7 = {com.laborbook.R.attr.isErrorText, com.laborbook.R.attr.isMukta, com.laborbook.R.attr.isTextColorPrimary};
-        public static int[] H8 = {com.laborbook.R.attr.isDarkGrey, com.laborbook.R.attr.isHeaderText, com.laborbook.R.attr.isMukta, com.laborbook.R.attr.isSemiBold};
-        public static int[] Subheading = {com.laborbook.R.attr.greyText, com.laborbook.R.attr.isHeaderText, com.laborbook.R.attr.isMukta};
-        public static int[] SubtitleOne = {com.laborbook.R.attr.isMukta};
-        public static int[] Theme = {com.laborbook.R.attr.colorPrimary, com.laborbook.R.attr.errorTextColor, com.laborbook.R.attr.hintTextColor, com.laborbook.R.attr.isMukta, com.laborbook.R.attr.otpTextColor, com.laborbook.R.attr.text10Color, com.laborbook.R.attr.text12Color, com.laborbook.R.attr.text14Color, com.laborbook.R.attr.text16Color, com.laborbook.R.attr.text18Color, com.laborbook.R.attr.text20Color, com.laborbook.R.attr.text22Color};
-        public static int[] Title = {com.laborbook.R.attr.isHeaderText};
+        public static int[] ActionButton = {com.rebuilt.app.R.attr.buttonDisabledBgColor, com.rebuilt.app.R.attr.buttonDisabledTextColor, com.rebuilt.app.R.attr.buttonEnabledBgColor, com.rebuilt.app.R.attr.buttonEnabledTextColor, com.rebuilt.app.R.attr.buttonGreenColor, com.rebuilt.app.R.attr.buttonProgressColor, com.rebuilt.app.R.attr.buttonRedColor, com.rebuilt.app.R.attr.buttonTextColor};
+        public static int[] Caption = {com.rebuilt.app.R.attr.isDarkBlack, com.rebuilt.app.R.attr.isDarkGrey, com.rebuilt.app.R.attr.isDarkSilver, com.rebuilt.app.R.attr.isHeaderText, com.rebuilt.app.R.attr.isMukta};
+        public static int[] H2 = {com.rebuilt.app.R.attr.timerErrorText, com.rebuilt.app.R.attr.timerText};
+        public static int[] H6 = {com.rebuilt.app.R.attr.isHeaderText, com.rebuilt.app.R.attr.isMukta, com.rebuilt.app.R.attr.timerErrorText, com.rebuilt.app.R.attr.timerText};
+        public static int[] H7 = {com.rebuilt.app.R.attr.isErrorText, com.rebuilt.app.R.attr.isMukta, com.rebuilt.app.R.attr.isTextColorPrimary};
+        public static int[] H8 = {com.rebuilt.app.R.attr.isDarkGrey, com.rebuilt.app.R.attr.isHeaderText, com.rebuilt.app.R.attr.isMukta, com.rebuilt.app.R.attr.isSemiBold};
+        public static int[] Subheading = {com.rebuilt.app.R.attr.greyText, com.rebuilt.app.R.attr.isHeaderText, com.rebuilt.app.R.attr.isMukta};
+        public static int[] SubtitleOne = {com.rebuilt.app.R.attr.isMukta};
+        public static int[] Theme = {com.rebuilt.app.R.attr.colorPrimary, com.rebuilt.app.R.attr.errorTextColor, com.rebuilt.app.R.attr.hintTextColor, com.rebuilt.app.R.attr.isMukta, com.rebuilt.app.R.attr.otpTextColor, com.rebuilt.app.R.attr.text10Color, com.rebuilt.app.R.attr.text12Color, com.rebuilt.app.R.attr.text14Color, com.rebuilt.app.R.attr.text16Color, com.rebuilt.app.R.attr.text18Color, com.rebuilt.app.R.attr.text20Color, com.rebuilt.app.R.attr.text22Color};
+        public static int[] Title = {com.rebuilt.app.R.attr.isHeaderText};
 
         private styleable() {
         }

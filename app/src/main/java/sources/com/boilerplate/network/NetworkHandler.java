@@ -10,7 +10,7 @@ import com.boilerplate.network.utils.CurlLoggerInterceptor;
 import com.boilerplate.network.utils.NetworkConstants;
 import com.boilerplate.network.utils.NetworkHandlerException;
 import com.google.firebase.remoteconfig.RemoteConfigConstants;
-import com.laborbook.base.Headers;
+import com.rebuilt.app.base.Headers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;

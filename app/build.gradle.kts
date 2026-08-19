@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.laborbook"
+    namespace = "com.rebuilt.app"
     compileSdk = 33
     defaultConfig {
         applicationId = "com.rebuilt.app"
@@ -24,7 +24,6 @@ android {
         buildConfig = true
     }
 
-    sourceSets["main"].java.srcDirs("src/main/kotlin")
 }
 
 dependencies {

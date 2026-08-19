@@ -1,6 +1,6 @@
 package com.boilerplate.uikit;
 
-import com.laborbook.C3544R;
+import com.rebuilt.app.C3544R;
 
 /* JADX INFO: renamed from: com.boilerplate.uikit.R */
 /* JADX INFO: loaded from: classes3.dex */

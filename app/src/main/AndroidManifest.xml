@@ -9,10 +9,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name="com.rebuilt.MainActivity"
+            android:name="com.rebuilt.app.MainActivity"
             android:exported="false" />
         <activity
-            android:name="com.rebuilt.AuthActivity"
+            android:name="com.rebuilt.app.AuthActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -7,7 +7,7 @@
     <View android:id="@id/ads_shadow" android:background="@drawable/shadow" android:visibility="gone" android:layout_width="match_parent" android:layout_height="@dimen/margin_2" ads:layout_constraintBottom_toTopOf="@id/ads_barrier" ads:layout_constraintEnd_toEndOf="parent" ads:layout_constraintStart_toStartOf="parent" />
     <FrameLayout android:id="@id/ad_container" android:layout_width="match_parent" android:layout_height="wrap_content" ads:layout_constraintBottom_toBottomOf="parent" ads:layout_constraintEnd_toEndOf="parent" ads:layout_constraintStart_toStartOf="parent">
         <com.google.android.gms.ads.AdView android:id="@id/adView" android:visibility="gone" android:layout_width="match_parent" android:layout_height="wrap_content" ads:adSize="BANNER" ads:adUnitId="ca-app-pub-4991346658410627/7843571317" />
-        <com.laborbook.base.ads.CustomAdView android:layout_gravity="center" android:id="@id/customAdView" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <com.rebuilt.app.base.ads.CustomAdView android:layout_gravity="center" android:id="@id/customAdView" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" />
     </FrameLayout>
     <androidx.constraintlayout.widget.Barrier android:id="@id/ads_barrier" android:layout_width="wrap_content" android:layout_height="wrap_content" ads:barrierAllowsGoneWidgets="true" ads:barrierDirection="top" ads:constraint_referenced_ids="ad_container" />
 </androidx.constraintlayout.widget.ConstraintLayout>

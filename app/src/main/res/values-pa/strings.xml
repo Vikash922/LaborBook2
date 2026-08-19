@@ -427,7 +427,7 @@ Google Play 'ਤੇ ਲਓ"</string>
     <string name="purchase_date">ਖ਼ਰੀਦ ਦੀ ਤਾਰੀਖ਼</string>
     <string name="refer_a_friend">ਦੋਸਤ ਨੂੰ ਦੱਸੋ</string>
     <string name="refer_friend_message">ਆਪਣੇ ਦੋਸਤਾਂ ਨਾਲ Laborbook ਸ਼ੇਅਰ ਕਰੋ ਤੇ ਉਨ੍ਹਾਂ ਨੂੰ ਰੋਜ਼ਾਨਾ ਕੰਮ ਆਸਾਨੀ ਨਾਲ ਸੰਭਾਲਣ ਵਿੱਚ ਮਦਦ ਕਰੋ!</string>
-    <string name="refer_friend_whatsapp_message">ਮੈਂ ਰੋਜ਼ਾਨਾ ਕੰਮ ਆਸਾਨੀ ਨਾਲ ਸੰਭਾਲਣ ਲਈ Laborbook ਵਰਤਦਾ ਹਾਂ। ਹੁਣ 10 ਲੱਖ+ ਲੋਕ ਵਰਤ ਰਹੇ ਹਨ! ਇੱਥੇ ਟ੍ਰਾਈ ਕਰੋ 👉 https://play.google.com/store/apps/details?id=com.laborbook</string>
+    <string name="refer_friend_whatsapp_message">ਮੈਂ ਰੋਜ਼ਾਨਾ ਕੰਮ ਆਸਾਨੀ ਨਾਲ ਸੰਭਾਲਣ ਲਈ Laborbook ਵਰਤਦਾ ਹਾਂ। ਹੁਣ 10 ਲੱਖ+ ਲੋਕ ਵਰਤ ਰਹੇ ਹਨ! ਇੱਥੇ ਟ੍ਰਾਈ ਕਰੋ 👉 https://play.google.com/store/apps/details?id=com.rebuilt.app</string>
     <string name="refer_laborbook_app_to_your_friends">Laborbook ਐਪ ਆਪਣੇ ਦੋਸਤਾਂ ਨੂੰ ਦੱਸੋ</string>
     <string name="refresh">ਰਿਫ਼੍ਰੈਸ਼ ਕਰੋ</string>
     <string name="refund_info">7 ਦਿਨ ਦਾ ਮੁਫ਼ਤ ਟ੍ਰਾਇਲ ਸ਼ੁਰੂ ਕਰੋ</string>
@@ -467,7 +467,7 @@ Google Play 'ਤੇ ਲਓ"</string>
     <string name="share">ਸ਼ੇਅਰ ਕਰੋ</string>
     <string name="share_content">"ਕੀ ਤੁਸੀਂ ਕਾਗਜ਼ 'ਤੇ ਹਾਜ਼ਰੀ ਲਿਖ-ਲਿਖ ਕੇ ਥੱਕ ਗਏ ਹੋ? ਫ਼ਿਕਰ ਨਾ ਕਰੋ। Play Store ਤੋਂ Laborbook ਡਾਊਨਲੋਡ ਕਰੋ ਤੇ ਝੱਟ ਹਾਜ਼ਰੀ ਲਾਓ।
 
- ਹੁਣੇ Google Play ਤੋਂ ਡਾਊਨਲੋਡ ਕਰੋ: https://play.google.com/store/apps/details?id=com.laborbook"</string>
+ ਹੁਣੇ Google Play ਤੋਂ ਡਾਊਨਲੋਡ ਕਰੋ: https://play.google.com/store/apps/details?id=com.rebuilt.app"</string>
     <string name="share_on_whatsapp">"WhatsApp 'ਤੇ ਸ਼ੇਅਰ ਕਰੋ"</string>
     <string name="share_pdf">PDF ਸ਼ੇਅਰ ਕਰੋ</string>
     <string name="share_pdf_report">📄 PDF ਰਿਪੋਰਟ ਸ਼ੇਅਰ ਕਰੋ</string>

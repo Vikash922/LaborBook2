@@ -1,6 +1,6 @@
 package com.example.swipebutton_library;
 
-import com.laborbook.C3544R;
+import com.rebuilt.app.C3544R;
 
 /* JADX INFO: renamed from: com.example.swipebutton_library.R */
 /* JADX INFO: loaded from: classes3.dex */
