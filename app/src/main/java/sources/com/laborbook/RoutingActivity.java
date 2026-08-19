@@ -297,7 +297,8 @@ public final class RoutingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen.INSTANCE.installSplashScreen(this);
         super.onCreate(savedInstanceState);
-        navigateToLoginScreen();
+        startActivity(new android.content.Intent(this, com.laborbook.auth.firebase.FirebaseAuthActivity.class));
+        finish();
     }
 
     /* JADX INFO: renamed from: com.laborbook.RoutingActivity$onCreate$1 */
