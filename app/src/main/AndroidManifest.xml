@@ -94,6 +94,7 @@
             </intent-filter>
         </activity>
         <activity android:exported="false" android:name="com.laborbook.MainActivity"/>
+        <activity android:exported="false" android:name="com.laborbook.auth.screen.login.view.LoginActivity" android:theme="@style/Theme.Laborbook" android:windowSoftInputMode="adjustPan"/>
         <activity android:exported="false" android:name="com.laborbook.keep.screen.BookKeepActivity" android:theme="@style/Theme.Laborbook" android:windowSoftInputMode="adjustNothing"/>
         <activity android:excludeFromRecents="true" android:exported="false" android:launchMode="singleTask" android:name="com.laborbook.keep.screen.AppLockActivity" android:noHistory="true" android:taskAffinity="" android:theme="@style/Theme.Laborbook"/>
         <provider android:authorities="com.laborbook.provider" android:exported="false" android:grantUriPermissions="true" android:name="androidx.core.content.FileProvider">
