@@ -21,12 +21,10 @@ android {
         }
     }
     buildFeatures {
-        viewBinding = true
-        dataBinding = true
         buildConfig = true
     }
 
-    sourceSets["main"].java.srcDirs("src/main/java/sources")
+    sourceSets["main"].java.srcDirs("src/main/kotlin")
 }
 
 dependencies {
