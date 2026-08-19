@@ -1,8 +1,0 @@
-package com.google.android.play.review;
-
-/* JADX INFO: renamed from: com.google.android.play.review.R */
-/* JADX INFO: loaded from: classes2.dex */
-public final class C1670R {
-    private C1670R() {
-    }
-}
