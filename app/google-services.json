@@ -12,7 +12,20 @@
           "package_name": "com.rebuilt.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1065103152897-jms29j647hqjbfpeljapoupmvqlrec17.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rebuilt.app",
+            "certificate_hash": "023f0379cac2852ec7c4d6f10a94a9f7cc455ee0"
+          }
+        },
+        {
+          "client_id": "1065103152897-i9c74up00i980fpti1tmhpe7ivmrkaac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAglOUk885ztsvTj3INb787WS4F9EycthE"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065103152897-i9c74up00i980fpti1tmhpe7ivmrkaac.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
