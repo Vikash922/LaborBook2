@@ -469,23 +469,12 @@ public final class BookKeepActivity extends BaseActivity implements Navigator.Na
         setOnDestinationChangeListener();
         checkForNotificationPermission();
         recordFirstTimeHomeScreenEventIfNeeded();
-        try {
-            this.appUpdateManager = AppUpdateManagerFactory.create(this);
-            this.appUpdateLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback() { // from class: com.laborbook.keep.screen.BookKeepActivity$$ExternalSyntheticLambda1
-                @Override // androidx.activity.result.ActivityResultCallback
-                public final void onActivityResult(Object obj) {
-                    Intrinsics.checkNotNullParameter((ActivityResult) obj, "result");
-                }
-            });
-            this.appLockLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback() { // from class: com.laborbook.keep.screen.BookKeepActivity$$ExternalSyntheticLambda2
-                @Override // androidx.activity.result.ActivityResultCallback
-                public final void onActivityResult(Object obj) {
-                    BookKeepActivity.onCreate$lambda$4(this.f$0, (ActivityResult) obj);
-                }
-            });
-            checkForUpdate();
-        } catch (Exception unused) {
-        }
+        this.appLockLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback() { // from class: com.laborbook.keep.screen.BookKeepActivity$$ExternalSyntheticLambda2
+            @Override // androidx.activity.result.ActivityResultCallback
+            public final void onActivityResult(Object obj) {
+                BookKeepActivity.onCreate$lambda$4(this.f$0, (ActivityResult) obj);
+            }
+        });
     }
 
     /* JADX INFO: Access modifiers changed from: private */
