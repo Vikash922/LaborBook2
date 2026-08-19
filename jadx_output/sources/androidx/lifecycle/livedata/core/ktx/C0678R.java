@@ -1,8 +1,0 @@
-package androidx.lifecycle.livedata.core.ktx;
-
-/* JADX INFO: renamed from: androidx.lifecycle.livedata.core.ktx.R */
-/* JADX INFO: loaded from: classes3.dex */
-public final class C0678R {
-    private C0678R() {
-    }
-}
